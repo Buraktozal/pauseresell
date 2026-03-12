@@ -898,8 +898,19 @@
     .hero-stats { gap: 1.5rem; }
     footer { flex-direction: column; text-align: center; }
     .footer-links { flex-wrap: wrap; justify-content: center; }
+    .modal-overlay { padding: 0; align-items: flex-start; }
+    .modal { max-height: 100vh; border-radius: 0; min-height: 100vh; }
     .modal-body { grid-template-columns: 1fr; }
-    .modal-gallery { max-height: 50vh; }
+    .modal-gallery { max-height: none; padding: 1rem; }
+    .modal-main-img { width: 100%; aspect-ratio: 1/1; object-fit: contain; border-radius: 6px; }
+    .modal-thumbs { gap: 0.4rem; padding-bottom: 0.3rem; }
+    .modal-thumb { width: 52px; height: 52px; border-radius: 4px; }
+    .modal-details { padding: 1.2rem; }
+    .modal-title { font-size: 1.5rem; }
+    .modal-price { font-size: 2.2rem; }
+    .modal-info-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .modal-actions { flex-direction: row; }
+    .modal-close { top: 0.5rem; right: 0.5rem; }
     .filter-bar { gap: 0.6rem; }
     .search-box { min-width: 100%; }
     .products-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
