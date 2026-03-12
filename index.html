@@ -1035,6 +1035,51 @@
 
   <div class="filter-bar">
     <input type="text" class="search-box" placeholder="Ürün ara... (örn: Air Jordan, Dunk, 42)" id="searchInput" oninput="applyFilters()">
+    <select class="filter-select" id="catFilter" onchange="applyFilters()">
+      <option value="all">Tüm Kategoriler</option>
+      <option value="sneaker">Sneaker / Ayakkabı</option>
+      <option value="tisort">T-Shirt / Atlet</option>
+      <option value="sort">Şort / Bermuda</option>
+      <option value="esofman">Eşofman / Pantolon</option>
+      <option value="sweatshirt">Sweatshirt / Hırka</option>
+      <option value="tayt">Tayt / Spor Sütyeni</option>
+      <option value="terlik">Terlik</option>
+      <option value="diger">Diğer (Gömlek, Etek, Forma...)</option>
+    </select>
+    <select class="filter-select" id="sizeFilter" onchange="applyFilters()">
+      <option value="all">Tüm Bedenler</option>
+      <optgroup label="Ayakkabı Numaraları">
+        <option value="35.5">35.5</option>
+        <option value="36">36</option>
+        <option value="36.5">36.5</option>
+        <option value="37">37</option>
+        <option value="37.5">37.5</option>
+        <option value="38">38</option>
+        <option value="38.5">38.5</option>
+        <option value="39">39</option>
+        <option value="40">40</option>
+        <option value="40.5">40.5</option>
+        <option value="41">41</option>
+        <option value="42">42</option>
+        <option value="42.5">42.5</option>
+        <option value="43">43</option>
+        <option value="44">44</option>
+        <option value="44.5">44.5</option>
+        <option value="45">45</option>
+        <option value="46">46</option>
+        <option value="47.5">47.5</option>
+        <option value="48">48</option>
+      </optgroup>
+      <optgroup label="Giyim Bedenleri">
+        <option value="XS / 34">XS</option>
+        <option value="S / 36">S</option>
+        <option value="M / 38">M</option>
+        <option value="L / 40">L</option>
+        <option value="XL / 42">XL</option>
+        <option value="2XL / 44">2XL</option>
+        <option value="3XL / 46">3XL</option>
+      </optgroup>
+    </select>
     <select class="filter-select" id="condFilter" onchange="applyFilters()">
       <option value="all">Tüm Durumlar</option>
       <option value="Yeni & Etiketli">Sıfır / Yeni</option>
@@ -7793,8 +7838,22 @@ function filterBrand(brand, el) {
   applyFilters();
 }
 
+function getCategory(desc) {
+  const d = (desc || '').toLowerCase();
+  if (d.includes('sneaker') || d.includes('basketbol') || d.includes('halı saha') || d.includes('krampon') || d.includes('spor ayakkabi')) return 'sneaker';
+  if (d.includes('t-shirt') || d.includes('atlet') || d.includes('fanila') || d.includes('polo')) return 'tisort';
+  if (d.includes('şort') || d.includes('bermuda') || d.includes('deniz')) return 'sort';
+  if (d.includes('eşofman') || d.includes('pantolon')) return 'esofman';
+  if (d.includes('sweatshirt') || d.includes('hırka') || d.includes('yağmurluk') || d.includes('rüzgarlık')) return 'sweatshirt';
+  if (d.includes('tayt') || d.includes('spor sütyeni')) return 'tayt';
+  if (d.includes('terlik')) return 'terlik';
+  return 'diger';
+}
+
 function applyFilters() {
   const search = document.getElementById('searchInput').value.toLowerCase().trim();
+  const catFilter = document.getElementById('catFilter').value;
+  const sizeFilter = document.getElementById('sizeFilter').value;
   const condFilter = document.getElementById('condFilter').value;
   const sortFilter = document.getElementById('sortFilter').value;
 
@@ -7809,6 +7868,16 @@ function applyFilters() {
       } else {
         if (brand !== matchBrand) return false;
       }
+    }
+
+    // Category filter
+    if (catFilter !== 'all') {
+      if (getCategory(p.desc) !== catFilter) return false;
+    }
+
+    // Size filter
+    if (sizeFilter !== 'all') {
+      if ((p.size || '') !== sizeFilter) return false;
     }
 
     // Search filter
