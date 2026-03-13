@@ -417,13 +417,44 @@
     overflow: hidden;
   }
 
-  .product-img img {
+  .card-slider {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .card-slider::-webkit-scrollbar { display: none; }
+
+  .card-slider img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s;
+    flex-shrink: 0;
+    scroll-snap-align: start;
   }
-  .product-card:hover .product-img img { transform: scale(1.05); }
+
+  .card-dots {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    z-index: 2;
+  }
+  .card-dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    transition: background 0.2s;
+  }
+  .card-dots span.active {
+    background: var(--white);
+  }
 
   .product-img::after {
     content: '';
@@ -432,6 +463,7 @@
     transform-origin: left;
     transform: scaleX(0);
     transition: transform 0.3s;
+    z-index: 3;
   }
   .product-card:hover .product-img::after { transform: scaleX(1); }
 
@@ -8045,9 +8077,9 @@ function renderProducts() {
     return `
       <div class="product-card" onclick="openModal(${i})" data-index="${i}">
         <div class="product-img">
-          ${img ? `<img src="${img}" alt="${name}" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML+='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;font-size:4rem\\'>👟</div>'">` : '<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:4rem">👟</div>'}
+          ${imgCount > 0 ? `<div class="card-slider" onclick="event.stopPropagation()" data-card-slider>${p.images.map(function(src){ return '<img src="' + src + '" alt="' + name + '" loading="lazy">'; }).join('')}</div>` : '<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:4rem">👟</div>'}
           <span class="condition-badge ${isNewItem ? 'badge-new' : 'badge-used'}">${condLabel}</span>
-          ${imgCount > 1 ? `<span class="img-count">📷 ${imgCount}</span>` : ''}
+          ${imgCount > 1 ? '<div class="card-dots">' + p.images.map(function(_, di){ return '<span' + (di === 0 ? ' class="active"' : '') + '></span>'; }).join('') + '</div>' : ''}
         </div>
         <div class="product-info">
           <div class="product-brand">${p.brand || ''}</div>
@@ -8074,6 +8106,7 @@ function renderProducts() {
     document.getElementById('loadMoreBtn').textContent =
       `Daha Fazla Göster (${filteredProducts.length - displayCount} ürün kaldı)`;
   }
+  initCardSliders();
 }
 
 function loadMore() {
@@ -8135,6 +8168,22 @@ function closeModal() {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
 });
+
+// Card slider dots
+function initCardSliders() {
+  document.querySelectorAll('.card-slider[data-card-slider]').forEach(function(slider) {
+    slider.addEventListener('scroll', function() {
+      var w = slider.offsetWidth;
+      var idx = Math.round(slider.scrollLeft / w);
+      var dots = slider.closest('.product-img').querySelector('.card-dots');
+      if (dots) {
+        dots.querySelectorAll('span').forEach(function(d, di) {
+          d.classList.toggle('active', di === idx);
+        });
+      }
+    });
+  });
+}
 
 // Mobile menu
 function closeMenu() {
