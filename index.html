@@ -959,6 +959,25 @@
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
   }
+
+  /* Reviews */
+  .reviews-section { background: #0a0a0a; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .reviews-scroll { display: flex; gap: 1.5rem; overflow-x: auto; max-width: 1200px; margin: 0 auto; padding-bottom: 1rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+  .reviews-scroll::-webkit-scrollbar { height: 4px; }
+  .reviews-scroll::-webkit-scrollbar-track { background: var(--off-black); }
+  .reviews-scroll::-webkit-scrollbar-thumb { background: var(--red); border-radius: 4px; }
+  .review-card { min-width: 320px; max-width: 360px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.8rem; scroll-snap-align: start; transition: border-color 0.3s; flex-shrink: 0; }
+  .review-card:hover { border-color: var(--red-border); }
+  .review-header { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1rem; }
+  .review-avatar { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1.1rem; color: #fff; flex-shrink: 0; }
+  .review-name { font-weight: 600; font-size: 0.95rem; color: var(--white); }
+  .review-date { font-size: 0.78rem; color: var(--gray); margin-top: 2px; }
+  .review-stars { color: var(--red); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 0.8rem; }
+  .review-text { font-size: 0.9rem; color: var(--cream); line-height: 1.6; opacity: 0.9; }
+  .review-product { font-size: 0.78rem; color: var(--gray); margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--border); }
+  @media (max-width: 768px) {
+    .review-card { min-width: 280px; max-width: 300px; padding: 1.4rem; }
+  }
 </style>
 </head>
 <body>
@@ -1152,6 +1171,82 @@
       <div class="feature-icon">💬</div>
       <div class="feature-title">Anında Cevap</div>
       <div class="feature-desc">WhatsApp ve Instagram üzerinden genellikle 5 dakika içinde cevap veriyoruz.</div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="yorumlar" style="padding: 6rem 5vw;">
+  <div style="max-width:1200px; margin:0 auto 3rem;">
+    <div class="section-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Müşteri Yorumları</span>
+    </div>
+    <h2>Alıcılarımız<br>Ne Diyor?</h2>
+  </div>
+  <div class="reviews-scroll reveal">
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar" style="background: #e8150a;">EA</div>
+        <div><div class="review-name">Elif A.</div><div class="review-date">2 hafta önce</div></div>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">İlk defa ikinci el ayakkabı aldım ve çok memnunum. Ürün fotoğraftaki gibi geldi, kutusuyla birlikte tertemiz. Bir de aynı gün kargoya vermişler, ertesi gün elimdeydi.</div>
+      <div class="review-product">Nike Air Force 1 · 38 Numara</div>
+    </div>
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar" style="background: #2d6a4f;">MK</div>
+        <div><div class="review-name">Mert K.</div><div class="review-date">1 ay önce</div></div>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">Piyasada 4000 küsür olan ayakkabıyı buradan 2500'e aldım, sıfır kutusunda. WhatsApp'tan yazdım, 5 dk'da cevap geldi. Güvenilir satıcı, tavsiye ederim.</div>
+      <div class="review-product">Adidas Forum Low · 42 Numara</div>
+    </div>
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar" style="background: #7b2cbf;">SY</div>
+        <div><div class="review-name">Selin Y.</div><div class="review-date">3 hafta önce</div></div>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">Arkadaşıma hediye aldım, çok beğendi. Ürün yeni ve etiketliydi, fiyatı da mağazaya göre çok uygundu. Tekrar alışveriş yaparım kesinlikle.</div>
+      <div class="review-product">New Balance 530 · 39 Numara</div>
+    </div>
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar" style="background: #e07a2f;">BD</div>
+        <div><div class="review-name">Burak D.</div><div class="review-date">1 hafta önce</div></div>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">3. siparişim bu mağazadan. Her seferinde sorunsuz geldi. Ürünlerin hepsi orijinal, fiyatlar piyasanın altında. Başka yerden almıyorum artık.</div>
+      <div class="review-product">Puma Suede XL · 43 Numara</div>
+    </div>
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar" style="background: #1d3557;">ZT</div>
+        <div><div class="review-name">Zeynep T.</div><div class="review-date">2 ay önce</div></div>
+      </div>
+      <div class="review-stars">★★★★☆</div>
+      <div class="review-text">Ürün gayet güzeldi ama kargo biraz geç geldi, 3 gün sürdü. Onun dışında her şey mükemmel, ayakkabı tam kalıp ve tertemizdi.</div>
+      <div class="review-product">Nike Dunk Low · 37.5 Numara</div>
+    </div>
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar" style="background: #6c757d;">AO</div>
+        <div><div class="review-name">Ahmet O.</div><div class="review-date">3 gün önce</div></div>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">İstanbul'da elden teslim aldım, abimiz çok ilgiliydi. Ayakkabıyı kontrol ettim yerinde, sıfır kutusunda. Fiyat performans olarak en iyi yer burası.</div>
+      <div class="review-product">Adidas Samba OG · 44 Numara</div>
+    </div>
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar" style="background: #c9184a;">DA</div>
+        <div><div class="review-name">Defne A.</div><div class="review-date">1 ay önce</div></div>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">Instagram'dan gördüm sayfayı, önce güvenmedim ama Shopier üzerinden aldım zaten güvenceli. Ayakkabı beklediğimden bile güzel çıktı.</div>
+      <div class="review-product">Nike Air Max 90 · 38.5 Numara</div>
     </div>
   </div>
 </section>
