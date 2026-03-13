@@ -974,17 +974,18 @@
     footer { flex-direction: column; text-align: center; }
     .footer-links { flex-wrap: wrap; justify-content: center; }
     .modal-overlay { padding: 0; align-items: flex-start; }
-    .modal { max-height: 100vh; border-radius: 0; min-height: 100vh; }
+    .modal { max-height: 100vh; border-radius: 0; min-height: 100vh; width: 100%; max-width: 100vw; overflow-x: hidden; }
     .modal-body { grid-template-columns: 1fr; }
     .modal-gallery { max-height: none; padding: 1rem; }
     .modal-main-img { width: 100%; aspect-ratio: 1/1; object-fit: contain; border-radius: 6px; }
     .modal-thumbs { gap: 0.4rem; padding-bottom: 0.3rem; }
     .modal-thumb { width: 52px; height: 52px; border-radius: 4px; }
-    .modal-details { padding: 1.2rem; }
-    .modal-title { font-size: 1.5rem; }
+    .modal-details { padding: 1.2rem; overflow: hidden; max-width: 100%; box-sizing: border-box; }
+    .modal-title { font-size: 1.5rem; word-break: break-word; }
     .modal-price { font-size: 2.2rem; }
     .modal-info-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
-    .modal-actions { flex-direction: row; }
+    .modal-info-item { overflow: hidden; min-width: 0; }
+    .modal-actions { flex-direction: row; flex-wrap: wrap; }
     .modal-close { top: 0.5rem; right: 0.5rem; width: 44px; height: 44px; font-size: 1.4rem; background: rgba(0,0,0,0.6); position: fixed; z-index: 20; }
     .filter-bar { gap: 0.6rem; }
     .search-box { min-width: 100%; }
