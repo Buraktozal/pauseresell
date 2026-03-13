@@ -11,8 +11,10 @@ async function getShopierProducts() {
   const page = await browser.newPage();
 
   console.log('Navigating to Shopier store...');
-  await page.goto(SHOPIER_URL, { waitUntil: 'networkidle', timeout: 30000 });
-  await page.waitForTimeout(2000);
+  await page.goto(SHOPIER_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
+  // Wait for product cards to render
+  await page.waitForSelector('.product-card-title', { timeout: 30000 }).catch(() => {});
+  await page.waitForTimeout(3000);
 
   // Get total product count from page
   const totalText = await page.textContent('.addable_product_count-div').catch(() => '');
