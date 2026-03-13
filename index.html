@@ -420,7 +420,13 @@
     overflow-y: auto;
     min-width: 180px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    scrollbar-width: thin;
+    scrollbar-color: var(--red) var(--off-black);
   }
+  .filter-dropdown-panel::-webkit-scrollbar { width: 6px; }
+  .filter-dropdown-panel::-webkit-scrollbar-track { background: var(--off-black); border-radius: 3px; }
+  .filter-dropdown-panel::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+  .filter-dropdown-panel::-webkit-scrollbar-button { display: none; }
   .filter-dropdown-panel.open { display: block; }
   .filter-dropdown-panel label {
     font-size: 0.8rem;
@@ -1191,7 +1197,7 @@
   </div>
 
   <div class="filter-bar">
-    <input type="text" class="search-box" placeholder="Ürün ara... (örn: Air Jordan, Dunk, 42)" id="searchInput" oninput="applyFilters()">
+    <input type="text" class="search-box" placeholder="Ürün ara... (örn: Air Jordan, Dunk, 42)" id="searchInput" oninput="updateResetBtn(); applyFilters()">
     <div class="filter-dropdown" id="catDropdown">
       <div class="filter-dropdown-btn" onclick="toggleDropdown('catDropdown')">Kategori</div>
       <div class="filter-dropdown-panel" id="catPanel">
@@ -1239,17 +1245,22 @@
         <div class="filter-chip" data-filter="size" data-value="3XL / 46" onclick="toggleChip(this)">3XL</div>
       </div>
     </div>
-    <select class="filter-select" id="condFilter" onchange="applyFilters()">
-      <option value="all">Tüm Durumlar</option>
-      <option value="Yeni & Etiketli">Sıfır / Yeni</option>
-      <option value="used">İkinci El</option>
-    </select>
-    <select class="filter-select" id="sortFilter" onchange="applyFilters()">
-      <option value="default">Sıralama</option>
-      <option value="price-asc">Fiyat: Düşükten Yükseğe</option>
-      <option value="price-desc">Fiyat: Yüksekten Düşüğe</option>
-      <option value="name">İsme Göre A-Z</option>
-    </select>
+    <div class="filter-dropdown" id="condDropdown">
+      <div class="filter-dropdown-btn" onclick="toggleDropdown('condDropdown')">Durum</div>
+      <div class="filter-dropdown-panel" id="condPanel">
+        <div class="filter-chip" data-filter="cond" data-value="Yeni & Etiketli" onclick="toggleChip(this)">Sıfır / Yeni</div>
+        <div class="filter-chip" data-filter="cond" data-value="used" onclick="toggleChip(this)">İkinci El</div>
+      </div>
+    </div>
+    <div class="filter-dropdown" id="sortDropdown">
+      <div class="filter-dropdown-btn" onclick="toggleDropdown('sortDropdown')">Sıralama</div>
+      <div class="filter-dropdown-panel" id="sortPanel">
+        <div class="filter-chip" data-filter="sort" data-value="price-asc" onclick="toggleSortChip(this)">Fiyat: Düşükten Yükseğe</div>
+        <div class="filter-chip" data-filter="sort" data-value="price-desc" onclick="toggleSortChip(this)">Fiyat: Yüksekten Düşüğe</div>
+        <div class="filter-chip" data-filter="sort" data-value="name" onclick="toggleSortChip(this)">İsme Göre A-Z</div>
+      </div>
+    </div>
+    <div class="filter-dropdown-btn" id="resetFiltersBtn" onclick="resetAllFilters()" style="display:none; background:transparent; border-color:var(--red); color:var(--red); cursor:pointer;">✕ Sıfırla</div>
     <div class="results-count" id="resultsCount"></div>
   </div>
 
@@ -8072,6 +8083,7 @@ function filterBrand(brand, el) {
   document.querySelectorAll('.brand-name').forEach(b => b.classList.remove('active'));
   if (el) el.classList.add('active');
   displayCount = PER_PAGE;
+  updateResetBtn();
   applyFilters();
 }
 
@@ -8101,13 +8113,59 @@ function toggleChip(el) {
   var dd = el.closest('.filter-dropdown');
   var btn = dd.querySelector('.filter-dropdown-btn');
   var selected = dd.querySelectorAll('.filter-chip.selected');
+  var labels = { cat: 'Kategori', size: 'Beden', cond: 'Durum' };
+  var label = labels[filterType] || filterType;
   if (selected.length > 0) {
     btn.classList.add('has-selection');
-    btn.textContent = (filterType === 'cat' ? 'Kategori' : 'Beden') + ' (' + selected.length + ')';
+    btn.textContent = label + ' (' + selected.length + ')';
   } else {
     btn.classList.remove('has-selection');
-    btn.textContent = filterType === 'cat' ? 'Kategori' : 'Beden';
+    btn.textContent = label;
   }
+  updateResetBtn();
+  applyFilters();
+}
+
+function toggleSortChip(el) {
+  var dd = el.closest('.filter-dropdown');
+  var btn = dd.querySelector('.filter-dropdown-btn');
+  var wasSelected = el.classList.contains('selected');
+  dd.querySelectorAll('.filter-chip.selected').forEach(function(c) { c.classList.remove('selected'); });
+  if (!wasSelected) {
+    el.classList.add('selected');
+    btn.classList.add('has-selection');
+    btn.textContent = el.textContent;
+  } else {
+    btn.classList.remove('has-selection');
+    btn.textContent = 'Sıralama';
+  }
+  dd.querySelector('.filter-dropdown-panel').classList.remove('open');
+  updateResetBtn();
+  applyFilters();
+}
+
+function updateResetBtn() {
+  var anyFilter = document.querySelectorAll('.filter-chip.selected').length > 0 ||
+    document.getElementById('searchInput').value.trim() !== '' ||
+    currentBrand !== 'all';
+  document.getElementById('resetFiltersBtn').style.display = anyFilter ? '' : 'none';
+}
+
+function resetAllFilters() {
+  document.querySelectorAll('.filter-chip.selected').forEach(function(c) { c.classList.remove('selected'); });
+  document.querySelectorAll('.filter-dropdown-btn').forEach(function(btn) {
+    btn.classList.remove('has-selection');
+  });
+  document.querySelector('#catDropdown .filter-dropdown-btn').textContent = 'Kategori';
+  document.querySelector('#sizeDropdown .filter-dropdown-btn').textContent = 'Beden';
+  document.querySelector('#condDropdown .filter-dropdown-btn').textContent = 'Durum';
+  document.querySelector('#sortDropdown .filter-dropdown-btn').textContent = 'Sıralama';
+  document.getElementById('searchInput').value = '';
+  currentBrand = 'all';
+  document.querySelectorAll('.brand-name').forEach(function(b) { b.classList.remove('active'); });
+  var allBtn = document.querySelector('.brand-name[data-brand="all"]');
+  if (allBtn) allBtn.classList.add('active');
+  document.getElementById('resetFiltersBtn').style.display = 'none';
   applyFilters();
 }
 
@@ -8128,8 +8186,9 @@ function applyFilters() {
   const search = document.getElementById('searchInput').value.toLowerCase().trim();
   const catFilters = getChipValues('cat');
   const sizeFilters = getChipValues('size');
-  const condFilter = document.getElementById('condFilter').value;
-  const sortFilter = document.getElementById('sortFilter').value;
+  const condFilters = getChipValues('cond');
+  const sortValues = getChipValues('sort');
+  const sortFilter = sortValues.length > 0 ? sortValues[0] : '';
 
   filteredProducts = allProducts.filter(p => {
     // Brand filter
@@ -8167,11 +8226,13 @@ function applyFilters() {
       if (!haystack.includes(search)) return false;
     }
 
-    // Condition filter
-    if (condFilter === 'Yeni & Etiketli') {
-      if (!isNew(p.cond)) return false;
-    } else if (condFilter === 'used') {
-      if (isNew(p.cond)) return false;
+    // Condition filter (multi)
+    if (condFilters.length > 0) {
+      var isNewItem = isNew(p.cond);
+      var match = false;
+      if (condFilters.includes('Yeni & Etiketli') && isNewItem) match = true;
+      if (condFilters.includes('used') && !isNewItem) match = true;
+      if (!match) return false;
     }
 
     return true;
