@@ -615,8 +615,8 @@
     background: var(--off-black);
     border: 1px solid var(--border);
     border-radius: 12px;
-    max-width: 900px;
-    width: 100%;
+    max-width: 960px;
+    width: 95%;
     max-height: 90vh;
     overflow-y: auto;
     overflow-x: hidden;
@@ -641,7 +641,7 @@
 
   .modal-body {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 55% 45%;
     gap: 0;
     overflow: hidden;
   }
@@ -742,6 +742,8 @@
   .modal-info-value {
     font-weight: 600;
     font-size: 0.95rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .modal-price {
