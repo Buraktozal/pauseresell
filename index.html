@@ -8109,7 +8109,7 @@ function renderProducts() {
     return `
       <div class="product-card" onclick="openModal(${i})" data-index="${i}">
         <div class="product-img">
-          ${imgCount > 0 ? `<div class="card-slider" onclick="event.stopPropagation()" data-card-slider>${p.images.map(function(src){ return '<img src="' + src + '" alt="' + name + '" loading="lazy">'; }).join('')}</div>` : '<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:4rem">👟</div>'}
+          ${imgCount > 0 ? `<div class="card-slider" data-card-slider>${p.images.map(function(src){ return '<img src="' + src + '" alt="' + name + '" loading="lazy" draggable="false">'; }).join('')}</div>` : '<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:4rem">👟</div>'}
           <span class="condition-badge ${isNewItem ? 'badge-new' : 'badge-used'}">${condLabel}</span>
           ${imgCount > 1 ? '<button class="card-arrow left" onclick="event.stopPropagation();slideCard(this,-1)">&#10094;</button><button class="card-arrow right" onclick="event.stopPropagation();slideCard(this,1)">&#10095;</button><div class="card-dots">' + p.images.map(function(_, di){ return '<span' + (di === 0 ? ' class="active"' : '') + '></span>'; }).join('') + '</div>' : ''}
         </div>
@@ -8209,9 +8209,16 @@ function slideCard(btn, dir) {
   slider.scrollBy({ left: dir * w, behavior: 'smooth' });
 }
 
-// Card slider dots
+// Card slider dots + swipe detection
 function initCardSliders() {
   document.querySelectorAll('.card-slider[data-card-slider]').forEach(function(slider) {
+    var startX = 0;
+    var swiped = false;
+    slider.addEventListener('pointerdown', function(e) { startX = e.clientX; swiped = false; });
+    slider.addEventListener('pointermove', function(e) { if (Math.abs(e.clientX - startX) > 5) swiped = true; });
+    slider.addEventListener('click', function(e) {
+      if (swiped) { e.stopPropagation(); return; }
+    });
     slider.addEventListener('scroll', function() {
       var w = slider.offsetWidth;
       var idx = Math.round(slider.scrollLeft / w);
