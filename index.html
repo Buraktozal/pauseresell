@@ -983,7 +983,7 @@
     .modal-price { font-size: 2.2rem; }
     .modal-info-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
     .modal-actions { flex-direction: row; }
-    .modal-close { top: 0.5rem; right: 0.5rem; }
+    .modal-close { top: 0.5rem; right: 0.5rem; width: 44px; height: 44px; font-size: 1.4rem; background: rgba(0,0,0,0.6); position: fixed; z-index: 20; }
     .filter-bar { gap: 0.6rem; }
     .search-box { min-width: 100%; }
     .products-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
@@ -8150,6 +8150,7 @@ function loadMore() {
 function openModal(index) {
   const p = filteredProducts[index];
   if (!p) return;
+  history.pushState({ modal: true }, '');
 
   const name = getDisplayName(p);
   document.getElementById('modalBrand').textContent = p.brand || '';
@@ -8192,13 +8193,21 @@ function setMainImg(src, thumb) {
 }
 
 function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('active');
-  document.body.style.overflow = '';
+  var overlay = document.getElementById('modalOverlay');
+  if (overlay.classList.contains('active')) {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
 }
+
+// Browser back button closes modal
+window.addEventListener('popstate', function(e) {
+  closeModal();
+});
 
 // Keyboard
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModal();
+  if (e.key === 'Escape') { closeModal(); history.back(); }
 });
 
 // Card slider arrow click
