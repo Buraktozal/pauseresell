@@ -463,6 +463,30 @@
     background: var(--white);
   }
 
+  .card-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    z-index: 3;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    backdrop-filter: blur(4px);
+    transition: background 0.2s;
+  }
+  .card-arrow:hover { background: rgba(0,0,0,0.8); }
+  .card-arrow.left { left: 6px; }
+  .card-arrow.right { right: 6px; }
+  .product-card:hover .card-arrow { display: flex; }
+
   .product-img::after {
     content: '';
     position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
@@ -8087,7 +8111,7 @@ function renderProducts() {
         <div class="product-img">
           ${imgCount > 0 ? `<div class="card-slider" onclick="event.stopPropagation()" data-card-slider>${p.images.map(function(src){ return '<img src="' + src + '" alt="' + name + '" loading="lazy">'; }).join('')}</div>` : '<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:4rem">👟</div>'}
           <span class="condition-badge ${isNewItem ? 'badge-new' : 'badge-used'}">${condLabel}</span>
-          ${imgCount > 1 ? '<div class="card-dots">' + p.images.map(function(_, di){ return '<span' + (di === 0 ? ' class="active"' : '') + '></span>'; }).join('') + '</div>' : ''}
+          ${imgCount > 1 ? '<button class="card-arrow left" onclick="event.stopPropagation();slideCard(this,-1)">&#10094;</button><button class="card-arrow right" onclick="event.stopPropagation();slideCard(this,1)">&#10095;</button><div class="card-dots">' + p.images.map(function(_, di){ return '<span' + (di === 0 ? ' class="active"' : '') + '></span>'; }).join('') + '</div>' : ''}
         </div>
         <div class="product-info">
           <div class="product-brand">${p.brand || ''}</div>
@@ -8176,6 +8200,14 @@ function closeModal() {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
 });
+
+// Card slider arrow click
+function slideCard(btn, dir) {
+  var slider = btn.closest('.product-img').querySelector('.card-slider');
+  if (!slider) return;
+  var w = slider.offsetWidth;
+  slider.scrollBy({ left: dir * w, behavior: 'smooth' });
+}
 
 // Card slider dots
 function initCardSliders() {
