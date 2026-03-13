@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); print\\(f''''Total products: {len\\(data\\)}''''\\); brands={};:*)",
+      "Bash(node -e \":*)",
+      "Bash(where node:*)",
+      "Bash(where npx:*)",
+      "Read(//c/Program Files/**)",
+      "Read(//c/Users/burak/AppData/Roaming/**)",
+      "Read(//c/Users/burak/AppData/Local/Programs/**)",
+      "Bash(cmd.exe /c start \"\" \"C:\\\\Users\\\\burak\\\\Desktop\\\\dolap-pausebutiq\\\\pause-resell-web-site\\\\index.html\")",
+      "Bash(cmd.exe /c start chrome \"file:///C:/Users/burak/Desktop/dolap-pausebutiq/pause-resell-web-site/index.html\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:9090/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/)",
+      "Bash(git --version)",
+      "Bash(gh --version)",
+      "Bash(git config:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "WebFetch(domain:www.shopier.com)",
+      "Bash(gh api:*)",
+      "Bash(where gh:*)",
+      "Bash(winget install:*)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/GitHub CLI:/c/Program Files \\(x86\\)/GitHub CLI\")",
+      "Bash(gh auth:*)",
+      "Bash(gh run:*)",
+      "Bash(gh workflow:*)",
+      "Bash(findstr \"products\\\\|Shopier\\\\|sync\\\\|Loaded\\\\|changes\")",
+      "Bash(curl -s -o /c/Users/burak/Desktop/shopier-test.html \"https://www.shopier.com/pauseresell\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\" \"https://www.shopier.com/pauseresell\" -o /c/Users/burak/Desktop/shopier-test.html)",
+      "Bash(node -e \"const fs=require\\(''''fs''''\\);const h=fs.readFileSync\\(''''C:/Users/burak/Desktop/shopier-test.html'''',''''utf8''''\\);const m=h.match\\(/pauseresell\\\\/\\(\\\\d{5,}\\)/g\\);console.log\\(''''IDs found:'''',m?[...new Set\\(m\\)].length:0\\);const c=h.match\\(/\\(\\\\d+\\)\\\\s*ürün/\\);console.log\\(''''Count text:'''',c?c[0]:''''not found''''\\);const pc=h.match\\(/product-card-title/g\\);console.log\\(''''Product cards:'''',pc?pc.length:0\\);\")",
+      "Bash(where node.exe)",
+      "Bash(cmd.exe /c \"where node\")",
+      "Bash(python3 -c \":*)"
+    ]
+  }
+}
