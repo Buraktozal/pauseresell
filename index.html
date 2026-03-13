@@ -338,21 +338,44 @@
     align-items: center;
   }
 
+  .search-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .search-icon {
+    position: absolute;
+    left: 0.65rem;
+    color: var(--gray);
+    font-size: 0.8rem;
+    pointer-events: none;
+    transition: color 0.2s;
+    z-index: 1;
+  }
   .search-box {
-    flex: 1;
-    min-width: 200px;
-    padding: 0.55rem 0.9rem;
+    width: 38px;
+    padding: 0.65rem 0.65rem 0.65rem 2rem;
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 6px;
     color: var(--white);
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     outline: none;
-    transition: border-color 0.2s;
+    cursor: pointer;
+    transition: width 0.3s ease, border-color 0.2s;
   }
-  .search-box:focus { border-color: var(--red); }
-  .search-box::placeholder { color: var(--gray); }
+  .search-box:focus,
+  .search-box.expanded {
+    width: 240px;
+    cursor: text;
+    border-color: var(--red);
+  }
+  .search-box:focus ~ .search-icon,
+  .search-box.expanded ~ .search-icon { color: var(--red); }
+  .search-box::placeholder { color: var(--gray); opacity: 0; transition: opacity 0.2s; }
+  .search-box:focus::placeholder,
+  .search-box.expanded::placeholder { opacity: 1; }
 
   .filter-btn {
     padding: 0.65rem 1.2rem;
@@ -1056,7 +1079,7 @@
     .modal-actions a:last-child { grid-column: 1 / -1; }
     .modal-close { top: 0.5rem; right: 0.5rem; width: 44px; height: 44px; font-size: 1.4rem; background: rgba(0,0,0,0.6); position: fixed; z-index: 20; }
     .filter-bar { gap: 0.6rem; }
-    .search-box { min-width: 100%; }
+    .search-box:focus, .search-box.expanded { width: 100%; }
     .products-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
     .product-info { padding: 0.8rem; }
     .product-price { font-size: 1.4rem; }
@@ -1197,7 +1220,10 @@
   </div>
 
   <div class="filter-bar">
-    <input type="text" class="search-box" placeholder="Ürün ara... (örn: Air Jordan, Dunk, 42)" id="searchInput" oninput="updateResetBtn(); applyFilters()">
+    <div class="search-wrap">
+      <input type="text" class="search-box" placeholder="Ürün ara..." id="searchInput" oninput="updateResetBtn(); applyFilters()" onblur="if(!this.value)this.classList.remove('expanded')">
+      <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+    </div>
     <div class="filter-dropdown" id="catDropdown">
       <div class="filter-dropdown-btn" onclick="toggleDropdown('catDropdown')">Kategori</div>
       <div class="filter-dropdown-panel" id="catPanel">
@@ -8160,7 +8186,9 @@ function resetAllFilters() {
   document.querySelector('#sizeDropdown .filter-dropdown-btn').textContent = 'Beden';
   document.querySelector('#condDropdown .filter-dropdown-btn').textContent = 'Durum';
   document.querySelector('#sortDropdown .filter-dropdown-btn').textContent = 'Sıralama';
-  document.getElementById('searchInput').value = '';
+  var si = document.getElementById('searchInput');
+  si.value = '';
+  si.classList.remove('expanded');
   currentBrand = 'all';
   document.querySelectorAll('.brand-name').forEach(function(b) { b.classList.remove('active'); });
   var allBtn = document.querySelector('.brand-name[data-brand="all"]');
