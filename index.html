@@ -923,18 +923,18 @@
     .nav-links {
       display: none;
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0; left: 0; width: 100vw; height: 100vh;
       background: #0d0d0d;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2rem;
+      gap: 2.5rem;
       z-index: 200;
-      padding: 2rem;
-      overflow-y: auto;
+      padding: 0;
+      overflow: hidden;
     }
     .nav-links.open { display: flex; }
-    .nav-links a { font-size: 1.3rem; white-space: nowrap; color: var(--white); }
+    .nav-links a { font-size: 1.4rem; white-space: nowrap; color: var(--white); }
     .hamburger { display: flex; z-index: 250; }
     .hero-stats { gap: 1.5rem; }
     footer { flex-direction: column; text-align: center; }
