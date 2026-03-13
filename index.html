@@ -8030,6 +8030,10 @@ function openModal(index) {
   const waLink = document.querySelector('.modal-actions .btn-primary');
   waLink.href = `https://wa.me/905317024614?text=${encodeURIComponent('Merhaba, ' + name + ' (' + p.size + ') ürünüyle ilgileniyorum.')}`;
 
+  // Update Shopier link
+  const shopierBtn = document.querySelector('.modal-actions .btn-shopier');
+  shopierBtn.href = p.shopierLink || 'https://shopier.com/pauseresell';
+
   document.getElementById('modalOverlay').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
