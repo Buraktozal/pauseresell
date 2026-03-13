@@ -423,17 +423,21 @@
     height: 100%;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
   }
   .card-slider::-webkit-scrollbar { display: none; }
 
   .card-slider img {
-    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
     height: 100%;
     object-fit: cover;
     flex-shrink: 0;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   .card-dots {
