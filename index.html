@@ -985,7 +985,8 @@
     .modal-price { font-size: 2.2rem; }
     .modal-info-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
     .modal-info-item { overflow: hidden; min-width: 0; }
-    .modal-actions { flex-direction: row; flex-wrap: wrap; }
+    .modal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .modal-actions a:last-child { grid-column: 1 / -1; }
     .modal-close { top: 0.5rem; right: 0.5rem; width: 44px; height: 44px; font-size: 1.4rem; background: rgba(0,0,0,0.6); position: fixed; z-index: 20; }
     .filter-bar { gap: 0.6rem; }
     .search-box { min-width: 100%; }
