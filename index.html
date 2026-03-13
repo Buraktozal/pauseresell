@@ -383,19 +383,67 @@
     outline: none;
   }
   .filter-select option { background: var(--black); }
-  .filter-select option:hover, .filter-select option:checked { background: var(--red); color: var(--black); }
   .filter-select:focus { border-color: var(--red); }
-  .filter-select[multiple] {
-    height: auto;
-    max-height: 200px;
+
+  .filter-dropdown {
+    position: relative;
+  }
+  .filter-dropdown-btn {
+    padding: 0.65rem 1rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .filter-dropdown-btn::after { content: '▾'; font-size: 0.7rem; opacity: 0.6; }
+  .filter-dropdown-btn:hover { border-color: var(--red); }
+  .filter-dropdown-btn.has-selection { border-color: var(--red); color: var(--red); }
+  .filter-dropdown-panel {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    background: var(--off-black);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem;
+    z-index: 50;
+    max-height: 280px;
     overflow-y: auto;
-    padding: 0.3rem;
+    min-width: 180px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
   }
-  .filter-select[multiple] option {
-    padding: 0.4rem 0.6rem;
+  .filter-dropdown-panel.open { display: block; }
+  .filter-dropdown-panel label {
+    font-size: 0.8rem;
+    color: var(--gray);
+    padding: 0.1rem 0.5rem;
+    display: block;
+    margin-top: 0.4rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .filter-chip {
+    display: block;
+    padding: 0.45rem 0.7rem;
     border-radius: 4px;
-    margin-bottom: 2px;
+    font-size: 0.82rem;
+    color: var(--white);
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
   }
+  .filter-chip:hover { background: rgba(232,21,10,0.15); color: var(--white); }
+  .filter-chip.selected { background: var(--red); color: var(--black); font-weight: 600; }
 
   .results-count {
     width: 100%;
@@ -1144,49 +1192,53 @@
 
   <div class="filter-bar">
     <input type="text" class="search-box" placeholder="Ürün ara... (örn: Air Jordan, Dunk, 42)" id="searchInput" oninput="applyFilters()">
-    <select class="filter-select" id="catFilter" multiple onchange="applyFilters()">
-      <option value="sneaker">Sneaker / Ayakkabı</option>
-      <option value="tisort">T-Shirt / Atlet</option>
-      <option value="sort">Şort / Bermuda</option>
-      <option value="esofman">Eşofman / Pantolon</option>
-      <option value="sweatshirt">Sweatshirt / Hırka</option>
-      <option value="tayt">Tayt / Spor Sütyeni</option>
-      <option value="terlik">Terlik</option>
-      <option value="diger">Diğer (Gömlek, Etek, Forma...)</option>
-    </select>
-    <select class="filter-select" id="sizeFilter" multiple onchange="applyFilters()">
-      <optgroup label="Ayakkabı Numaraları">
-        <option value="35.5">35.5</option>
-        <option value="36">36</option>
-        <option value="36.5">36.5</option>
-        <option value="37">37</option>
-        <option value="37.5">37.5</option>
-        <option value="38">38</option>
-        <option value="38.5">38.5</option>
-        <option value="39">39</option>
-        <option value="40">40</option>
-        <option value="40.5">40.5</option>
-        <option value="41">41</option>
-        <option value="42">42</option>
-        <option value="42.5">42.5</option>
-        <option value="43">43</option>
-        <option value="44">44</option>
-        <option value="44.5">44.5</option>
-        <option value="45">45</option>
-        <option value="46">46</option>
-        <option value="47.5">47.5</option>
-        <option value="48">48</option>
-      </optgroup>
-      <optgroup label="Giyim Bedenleri">
-        <option value="XS / 34">XS</option>
-        <option value="S / 36">S</option>
-        <option value="M / 38">M</option>
-        <option value="L / 40">L</option>
-        <option value="XL / 42">XL</option>
-        <option value="2XL / 44">2XL</option>
-        <option value="3XL / 46">3XL</option>
-      </optgroup>
-    </select>
+    <div class="filter-dropdown" id="catDropdown">
+      <div class="filter-dropdown-btn" onclick="toggleDropdown('catDropdown')">Kategori</div>
+      <div class="filter-dropdown-panel" id="catPanel">
+        <div class="filter-chip" data-filter="cat" data-value="sneaker" onclick="toggleChip(this)">Sneaker / Ayakkabı</div>
+        <div class="filter-chip" data-filter="cat" data-value="tisort" onclick="toggleChip(this)">T-Shirt / Atlet</div>
+        <div class="filter-chip" data-filter="cat" data-value="sort" onclick="toggleChip(this)">Şort / Bermuda</div>
+        <div class="filter-chip" data-filter="cat" data-value="esofman" onclick="toggleChip(this)">Eşofman / Pantolon</div>
+        <div class="filter-chip" data-filter="cat" data-value="sweatshirt" onclick="toggleChip(this)">Sweatshirt / Hırka</div>
+        <div class="filter-chip" data-filter="cat" data-value="tayt" onclick="toggleChip(this)">Tayt / Spor Sütyeni</div>
+        <div class="filter-chip" data-filter="cat" data-value="terlik" onclick="toggleChip(this)">Terlik</div>
+        <div class="filter-chip" data-filter="cat" data-value="diger" onclick="toggleChip(this)">Diğer</div>
+      </div>
+    </div>
+    <div class="filter-dropdown" id="sizeDropdown">
+      <div class="filter-dropdown-btn" onclick="toggleDropdown('sizeDropdown')">Beden</div>
+      <div class="filter-dropdown-panel" id="sizePanel">
+        <label>Ayakkabı</label>
+        <div class="filter-chip" data-filter="size" data-value="35.5" onclick="toggleChip(this)">35.5</div>
+        <div class="filter-chip" data-filter="size" data-value="36" onclick="toggleChip(this)">36</div>
+        <div class="filter-chip" data-filter="size" data-value="36.5" onclick="toggleChip(this)">36.5</div>
+        <div class="filter-chip" data-filter="size" data-value="37" onclick="toggleChip(this)">37</div>
+        <div class="filter-chip" data-filter="size" data-value="37.5" onclick="toggleChip(this)">37.5</div>
+        <div class="filter-chip" data-filter="size" data-value="38" onclick="toggleChip(this)">38</div>
+        <div class="filter-chip" data-filter="size" data-value="38.5" onclick="toggleChip(this)">38.5</div>
+        <div class="filter-chip" data-filter="size" data-value="39" onclick="toggleChip(this)">39</div>
+        <div class="filter-chip" data-filter="size" data-value="40" onclick="toggleChip(this)">40</div>
+        <div class="filter-chip" data-filter="size" data-value="40.5" onclick="toggleChip(this)">40.5</div>
+        <div class="filter-chip" data-filter="size" data-value="41" onclick="toggleChip(this)">41</div>
+        <div class="filter-chip" data-filter="size" data-value="42" onclick="toggleChip(this)">42</div>
+        <div class="filter-chip" data-filter="size" data-value="42.5" onclick="toggleChip(this)">42.5</div>
+        <div class="filter-chip" data-filter="size" data-value="43" onclick="toggleChip(this)">43</div>
+        <div class="filter-chip" data-filter="size" data-value="44" onclick="toggleChip(this)">44</div>
+        <div class="filter-chip" data-filter="size" data-value="44.5" onclick="toggleChip(this)">44.5</div>
+        <div class="filter-chip" data-filter="size" data-value="45" onclick="toggleChip(this)">45</div>
+        <div class="filter-chip" data-filter="size" data-value="46" onclick="toggleChip(this)">46</div>
+        <div class="filter-chip" data-filter="size" data-value="47.5" onclick="toggleChip(this)">47.5</div>
+        <div class="filter-chip" data-filter="size" data-value="48" onclick="toggleChip(this)">48</div>
+        <label>Giyim</label>
+        <div class="filter-chip" data-filter="size" data-value="XS / 34" onclick="toggleChip(this)">XS</div>
+        <div class="filter-chip" data-filter="size" data-value="S / 36" onclick="toggleChip(this)">S</div>
+        <div class="filter-chip" data-filter="size" data-value="M / 38" onclick="toggleChip(this)">M</div>
+        <div class="filter-chip" data-filter="size" data-value="L / 40" onclick="toggleChip(this)">L</div>
+        <div class="filter-chip" data-filter="size" data-value="XL / 42" onclick="toggleChip(this)">XL</div>
+        <div class="filter-chip" data-filter="size" data-value="2XL / 44" onclick="toggleChip(this)">2XL</div>
+        <div class="filter-chip" data-filter="size" data-value="3XL / 46" onclick="toggleChip(this)">3XL</div>
+      </div>
+    </div>
     <select class="filter-select" id="condFilter" onchange="applyFilters()">
       <option value="all">Tüm Durumlar</option>
       <option value="Yeni & Etiketli">Sıfır / Yeni</option>
@@ -8035,19 +8087,47 @@ function getCategory(desc) {
   return 'diger';
 }
 
-function getSelectedValues(id) {
-  var sel = document.getElementById(id);
-  var vals = [];
-  for (var i = 0; i < sel.options.length; i++) {
-    if (sel.options[i].selected) vals.push(sel.options[i].value);
+function toggleDropdown(id) {
+  var dd = document.getElementById(id);
+  var panel = dd.querySelector('.filter-dropdown-panel');
+  var wasOpen = panel.classList.contains('open');
+  document.querySelectorAll('.filter-dropdown-panel.open').forEach(function(p) { p.classList.remove('open'); });
+  if (!wasOpen) panel.classList.add('open');
+}
+
+function toggleChip(el) {
+  el.classList.toggle('selected');
+  var filterType = el.dataset.filter;
+  var dd = el.closest('.filter-dropdown');
+  var btn = dd.querySelector('.filter-dropdown-btn');
+  var selected = dd.querySelectorAll('.filter-chip.selected');
+  if (selected.length > 0) {
+    btn.classList.add('has-selection');
+    btn.textContent = (filterType === 'cat' ? 'Kategori' : 'Beden') + ' (' + selected.length + ')';
+  } else {
+    btn.classList.remove('has-selection');
+    btn.textContent = filterType === 'cat' ? 'Kategori' : 'Beden';
   }
+  applyFilters();
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.filter-dropdown')) {
+    document.querySelectorAll('.filter-dropdown-panel.open').forEach(function(p) { p.classList.remove('open'); });
+  }
+});
+
+function getChipValues(filterType) {
+  var chips = document.querySelectorAll('.filter-chip.selected[data-filter="' + filterType + '"]');
+  var vals = [];
+  chips.forEach(function(c) { vals.push(c.dataset.value); });
   return vals;
 }
 
 function applyFilters() {
   const search = document.getElementById('searchInput').value.toLowerCase().trim();
-  const catFilters = getSelectedValues('catFilter');
-  const sizeFilters = getSelectedValues('sizeFilter');
+  const catFilters = getChipValues('cat');
+  const sizeFilters = getChipValues('size');
   const condFilter = document.getElementById('condFilter').value;
   const sortFilter = document.getElementById('sortFilter').value;
 
