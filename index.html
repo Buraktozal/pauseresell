@@ -1042,44 +1042,17 @@
   .no-results span { font-size: 3rem; display: block; margin-bottom: 1rem; }
 
   /* RESPONSIVE */
-  /* Mobile hero sneaker slider */
-  .hero-sneaker-slider {
-    display: none;
-  }
-  @media (max-width: 768px) {
-    .hero-sneaker-slider {
-      display: flex;
-      gap: 0.8rem;
-      overflow-x: auto;
-      padding: 0.5rem 0 1rem;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    .hero-sneaker-slider::-webkit-scrollbar { display: none; }
-    .hero-sneaker-item {
-      flex-shrink: 0;
-      width: 110px;
-      height: 110px;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      transition: border-color 0.2s;
-    }
-    .hero-sneaker-item:hover { border-color: var(--red-border); }
-    .hero-sneaker-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
+  .hero-sneaker-slider { display: none; }
 
   @media (max-width: 768px) {
     .hero { min-height: auto; padding: 5rem 5vw 1.5rem; }
-    .hero-inner { grid-template-columns: 1fr; gap: 1rem; }
+    .hero-inner { grid-template-columns: 1fr; gap: 0; }
     .hero-visual { display: none; }
-    .hero-desc { margin-bottom: 1.5rem; }
-    .hero-stats { margin-top: 1.5rem; padding-top: 1.5rem; }
+    .hero-eyebrow { margin-bottom: 0.8rem; }
+    h1 { margin-bottom: 0.8rem; }
+    .hero-desc { display: none; }
+    .hero-btns { display: none; }
+    .hero-stats { display: none; }
     .nav-links {
       display: none;
       position: fixed;
@@ -1200,7 +1173,6 @@
         <a href="#urunler" class="btn-primary">Ürünleri Gör</a>
         <a href="#iletisim" class="btn-secondary">Mesaj At</a>
       </div>
-      <div class="hero-sneaker-slider" id="heroSneakerSlider"></div>
       <div class="hero-stats">
         <div>
           <div class="stat-number" id="statCount">330+</div>
