@@ -114,11 +114,15 @@
     display: none;
   }
 
-  .hero::before {
+  .hero::before { display: none; }
+
+  body::before {
     content: '';
-    position: absolute; left: 0; top: 0; bottom: 0;
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
     width: 4px;
     background: var(--red);
+    z-index: 999;
   }
 
   .hero-inner {
