@@ -21,11 +21,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Playwright
-        run: |
-          npm install playwright
-          npx playwright install chromium --with-deps
-
       - name: Run sync script
         run: node sync-shopier.js
 
