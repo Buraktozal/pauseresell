@@ -284,10 +284,10 @@
 
   /* BRANDS STRIP */
   .brands-strip {
-    padding: 1.5rem 5vw;
+    padding: 1.2rem 5vw;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center; gap: 4rem;
+    display: flex; align-items: center; justify-content: center; gap: 0.6rem;
     flex-wrap: wrap;
     background: #0a0a0a;
     scroll-margin-top: 80px;
@@ -296,14 +296,29 @@
   [id] { scroll-margin-top: 80px; }
 
   .brand-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem;
-    letter-spacing: 3px;
-    color: rgba(255,255,255,0.12);
-    transition: color 0.3s;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: var(--gray);
     cursor: pointer;
+    padding: 0.5rem 1.1rem;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: transparent;
+    transition: all 0.2s;
   }
-  .brand-name:hover, .brand-name.active { color: var(--red); }
+  .brand-name:hover {
+    border-color: var(--red);
+    color: var(--white);
+    background: rgba(232,21,10,0.1);
+  }
+  .brand-name.active {
+    background: var(--red);
+    border-color: var(--red);
+    color: var(--black);
+    font-weight: 700;
+  }
 
   /* SECTIONS */
   section { padding: 6rem 5vw; }
