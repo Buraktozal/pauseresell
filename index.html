@@ -452,14 +452,19 @@
   .filter-dropdown-panel::-webkit-scrollbar-button { display: none; }
   .filter-dropdown-panel.open { display: block; }
   .filter-dropdown-panel label {
-    font-size: 0.8rem;
-    color: var(--gray);
-    padding: 0.1rem 0.5rem;
+    font-size: 0.7rem;
+    color: var(--red);
+    padding: 0.35rem 0.6rem 0.15rem;
     display: block;
-    margin-top: 0.4rem;
-    letter-spacing: 1px;
+    margin-top: 0.5rem;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     font-weight: 700;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .filter-dropdown-panel label:first-child {
+    border-top: none;
+    margin-top: 0;
   }
   .filter-chip {
     display: block;
