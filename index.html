@@ -1101,6 +1101,258 @@
   }
   .scroll-top.visible { opacity: 1; transform: translateY(0); }
 
+  /* FLOATING CART */
+  .cart-float {
+    position: fixed;
+    bottom: 2rem; left: 2rem;
+    width: 56px; height: 56px;
+    background: var(--red);
+    border-radius: 50%;
+    display: none; align-items: center; justify-content: center;
+    z-index: 98;
+    box-shadow: 0 4px 16px rgba(229,62,62,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+  }
+  .cart-float.show { display: flex; }
+  .cart-float:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(229,62,62,0.5); }
+  .cart-float svg { width: 26px; height: 26px; fill: #fff; }
+  .cart-float-badge {
+    position: absolute;
+    top: -4px; right: -4px;
+    background: #fff;
+    color: var(--red);
+    font-size: 12px;
+    font-weight: 800;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+  .cart-float-pulse {
+    position: absolute;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    background: rgba(229,62,62,0.3);
+    animation: cartPulse 2s ease-out infinite;
+  }
+  @keyframes cartPulse {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+
+  /* CART PANEL */
+  .cart-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .cart-overlay.active { opacity: 1; pointer-events: auto; }
+
+  .cart-panel {
+    position: fixed;
+    top: 0; right: -420px;
+    width: 400px; max-width: 90vw;
+    height: 100vh;
+    background: #111;
+    z-index: 201;
+    display: flex; flex-direction: column;
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -4px 0 24px rgba(0,0,0,0.5);
+  }
+  .cart-panel.active { right: 0; }
+
+  .cart-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid #222;
+  }
+  .cart-header h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .cart-header h3 span {
+    background: var(--red);
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+  .cart-close {
+    background: none; border: none;
+    color: #888; font-size: 1.5rem;
+    cursor: pointer; padding: 4px;
+    transition: color 0.2s;
+  }
+  .cart-close:hover { color: #fff; }
+
+  .cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 1.2rem;
+  }
+  .cart-items::-webkit-scrollbar { width: 4px; }
+  .cart-items::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+
+  .cart-item {
+    display: flex; gap: 0.8rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #1a1a1a;
+    position: relative;
+  }
+  .cart-item-img {
+    width: 70px; height: 70px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #1a1a1a;
+    flex-shrink: 0;
+  }
+  .cart-item-info { flex: 1; min-width: 0; }
+  .cart-item-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cart-item-meta {
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 4px;
+  }
+  .cart-item-price {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--red);
+  }
+  .cart-item-remove {
+    position: absolute;
+    top: 0.8rem; right: 0;
+    background: none; border: none;
+    color: #555; font-size: 1.1rem;
+    cursor: pointer;
+    padding: 2px 6px;
+    transition: color 0.2s;
+  }
+  .cart-item-remove:hover { color: var(--red); }
+
+  .cart-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #555;
+  }
+  .cart-empty svg { width: 48px; height: 48px; fill: #333; margin-bottom: 1rem; }
+  .cart-empty p { font-size: 0.9rem; }
+
+  .cart-footer {
+    border-top: 1px solid #222;
+    padding: 1.2rem 1.5rem;
+  }
+  .cart-total {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 1rem;
+  }
+  .cart-total-label { color: #888; font-size: 0.9rem; }
+  .cart-total-price { color: #fff; font-size: 1.3rem; font-weight: 800; }
+
+  .cart-wa-btn {
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    width: 100%;
+    padding: 14px 20px;
+    background: #25D366;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    text-decoration: none;
+  }
+  .cart-wa-btn:hover { background: #1fba59; }
+  .cart-wa-btn:active { transform: scale(0.98); }
+  .cart-wa-btn svg { width: 20px; height: 20px; fill: #fff; }
+
+  .cart-clear-btn {
+    display: block;
+    width: 100%;
+    margin-top: 0.6rem;
+    padding: 10px;
+    background: none;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #888;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .cart-clear-btn:hover { border-color: var(--red); color: var(--red); }
+
+  /* Add to cart button on product card */
+  .btn-add-cart {
+    display: flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px;
+    background: transparent;
+    border: 1.5px solid #333;
+    border-radius: 8px;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .btn-add-cart:hover { border-color: var(--red); color: var(--red); }
+  .btn-add-cart.in-cart { background: var(--red); border-color: var(--red); color: #fff; }
+  .btn-add-cart svg { width: 18px; height: 18px; fill: currentColor; }
+
+  /* Modal add to cart button */
+  .btn-cart-modal {
+    display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+    padding: 0.7rem 1.2rem;
+    background: var(--red);
+    color: #fff;
+    border: 2px solid var(--red);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .btn-cart-modal:hover { background: transparent; color: var(--red); }
+  .btn-cart-modal.in-cart { background: #1a3a1a; border-color: #25D366; color: #25D366; }
+  .btn-cart-modal svg { width: 18px; height: 18px; fill: currentColor; }
+
+  /* Toast notification */
+  .cart-toast {
+    position: fixed;
+    bottom: 5rem; left: 2rem;
+    background: #1a1a1a;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 300;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s;
+    border: 1px solid #333;
+    pointer-events: none;
+  }
+  .cart-toast.show { opacity: 1; transform: translateY(0); }
+
   /* NO RESULTS */
   .no-results {
     text-align: center;
@@ -1600,6 +1852,37 @@
   <div class="footer-copy">© 2025–2026 Pause Resell</div>
 </footer>
 
+<!-- FLOATING CART -->
+<button class="cart-float" id="cartFloat" onclick="openCartPanel()">
+  <span class="cart-float-pulse"></span>
+  <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+  <span class="cart-float-badge" id="cartBadge">0</span>
+</button>
+
+<!-- CART PANEL -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCartPanel()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <h3>Sepetim <span id="cartCount">0 ürün</span></h3>
+    <button class="cart-close" onclick="closeCartPanel()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter">
+    <div class="cart-total">
+      <span class="cart-total-label">Toplam</span>
+      <span class="cart-total-price" id="cartTotal">0 TL</span>
+    </div>
+    <a class="cart-wa-btn" id="cartWaBtn" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp ile Sipariş Ver
+    </a>
+    <button class="cart-clear-btn" onclick="clearCart()">Sepeti Temizle</button>
+  </div>
+</div>
+
+<!-- CART TOAST -->
+<div class="cart-toast" id="cartToast"></div>
+
 <!-- FLOATING WHATSAPP -->
 <a href="https://wa.me/905317024614?text=Merhaba%2C%20bir%20%C3%BCr%C3%BCn%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp ile iletişime geç">
   <span class="wa-float-pulse"></span>
@@ -1645,6 +1928,7 @@
           <a href="https://wa.me/905317024614" class="btn-primary" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp</a>
           <a href="https://shopier.com/pauseresell" class="btn-shopier" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg> SHOPIER</a>
           <a href="https://instagram.com/pauseresell" class="btn-secondary" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Instagram</a>
+          <button class="btn-cart-modal" id="modalCartBtn" onclick="addToCartFromModal()"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg> Sepete Ekle</button>
         </div>
       </div>
     </div>
@@ -8464,6 +8748,9 @@ function renderProducts() {
           </div>
           <div class="product-footer">
             <div class="product-price">${price}<small> TL</small></div>
+            <button class="btn-add-cart ${isInCart(p.folder) ? 'in-cart' : ''}" onclick="event.stopPropagation();toggleCart('${p.folder}')" title="${isInCart(p.folder) ? 'Sepetten Çıkar' : 'Sepete Ekle'}">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
             <a href="https://wa.me/905317024614?text=${encodeURIComponent('Merhaba, ' + name + ' (' + p.size + ') ürünüyle ilgileniyorum.')}" class="btn-contact" target="_blank" onclick="event.stopPropagation()">Al</a>
           </div>
         </div>
@@ -8523,6 +8810,10 @@ function openModal(index) {
   // Update Shopier link
   const shopierBtn = document.querySelector('.modal-actions .btn-shopier');
   shopierBtn.href = p.shopierLink || 'https://shopier.com/pauseresell';
+
+  // Track current modal product for cart
+  currentModalProduct = p;
+  updateModalCartBtn();
 
   document.getElementById('modalOverlay').classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -8611,6 +8902,153 @@ function initReveal() {
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 }
+
+// ===== CART SYSTEM =====
+let cart = JSON.parse(localStorage.getItem('pauseCart') || '[]');
+let currentModalProduct = null;
+
+function saveCart() {
+  localStorage.setItem('pauseCart', JSON.stringify(cart));
+  updateCartBadge();
+}
+
+function isInCart(folder) {
+  return cart.some(item => item.folder === folder);
+}
+
+function addToCart(product) {
+  if (isInCart(product.folder)) return;
+  const name = product.realName || product.desc || 'Ürün';
+  cart.push({
+    folder: product.folder,
+    name: name,
+    brand: product.brand || '',
+    size: product.size || '',
+    price: product.price,
+    image: (product.images && product.images[0]) || '',
+    shopierLink: product.shopierLink || ''
+  });
+  saveCart();
+  showToast(name + ' sepete eklendi');
+  renderProducts();
+}
+
+function removeFromCart(folder) {
+  cart = cart.filter(item => item.folder !== folder);
+  saveCart();
+  renderCartPanel();
+  renderProducts();
+}
+
+function toggleCart(folder) {
+  if (isInCart(folder)) {
+    removeFromCart(folder);
+  } else {
+    const p = allProducts.find(x => x.folder === folder);
+    if (p) addToCart(p);
+  }
+  updateModalCartBtn();
+}
+
+function addToCartFromModal() {
+  if (!currentModalProduct) return;
+  toggleCart(currentModalProduct.folder);
+}
+
+function updateCartBadge() {
+  const floatBtn = document.getElementById('cartFloat');
+  const badge = document.getElementById('cartBadge');
+  if (cart.length > 0) {
+    floatBtn.classList.add('show');
+    badge.textContent = cart.length;
+  } else {
+    floatBtn.classList.remove('show');
+  }
+}
+
+function updateModalCartBtn() {
+  const btn = document.getElementById('modalCartBtn');
+  if (!btn || !currentModalProduct) return;
+  const inCart = isInCart(currentModalProduct.folder);
+  btn.classList.toggle('in-cart', inCart);
+  btn.innerHTML = inCart
+    ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg> Sepette'
+    : '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg> Sepete Ekle';
+}
+
+function openCartPanel() {
+  renderCartPanel();
+  document.getElementById('cartOverlay').classList.add('active');
+  document.getElementById('cartPanel').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCartPanel() {
+  document.getElementById('cartOverlay').classList.remove('active');
+  document.getElementById('cartPanel').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function renderCartPanel() {
+  const container = document.getElementById('cartItems');
+  const footer = document.getElementById('cartFooter');
+  const countEl = document.getElementById('cartCount');
+
+  if (cart.length === 0) {
+    container.innerHTML = '<div class="cart-empty"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><p>Sepetiniz boş</p></div>';
+    footer.style.display = 'none';
+    countEl.textContent = '0 ürün';
+    return;
+  }
+
+  footer.style.display = 'block';
+  countEl.textContent = cart.length + ' ürün';
+
+  container.innerHTML = cart.map(item => {
+    const price = parseInt(item.price).toLocaleString('tr-TR');
+    return `
+      <div class="cart-item">
+        <img class="cart-item-img" src="${item.image}" alt="" loading="lazy">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-meta">${item.brand} · ${item.size}</div>
+          <div class="cart-item-price">${price} TL</div>
+        </div>
+        <button class="cart-item-remove" onclick="removeFromCart('${item.folder}')" title="Kaldır">✕</button>
+      </div>
+    `;
+  }).join('');
+
+  // Total
+  const total = cart.reduce((sum, item) => sum + parseInt(item.price), 0);
+  document.getElementById('cartTotal').textContent = total.toLocaleString('tr-TR') + ' TL';
+
+  // WhatsApp link
+  let msg = 'Merhaba, aşağıdaki ürünleri sipariş vermek istiyorum:\n\n';
+  cart.forEach((item, i) => {
+    msg += (i + 1) + '. ' + item.name + ' — ' + parseInt(item.price).toLocaleString('tr-TR') + ' TL\n';
+  });
+  msg += '\nToplam: ' + total.toLocaleString('tr-TR') + ' TL';
+  document.getElementById('cartWaBtn').href = 'https://wa.me/905317024614?text=' + encodeURIComponent(msg);
+}
+
+function clearCart() {
+  cart = [];
+  saveCart();
+  renderCartPanel();
+  renderProducts();
+  closeCartPanel();
+}
+
+function showToast(text) {
+  const toast = document.getElementById('cartToast');
+  toast.textContent = text;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+// Update cart badge on load
+updateCartBadge();
 
 // Init
 init();
