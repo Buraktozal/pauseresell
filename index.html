@@ -8193,7 +8193,7 @@ const PER_PAGE = 24;
 // Load products from JSON file (same directory)
 async function init() {
   try {
-    const resp = await fetch('./products.json');
+    const resp = await fetch('./products.json?v=' + Date.now());
     allProducts = await resp.json();
   } catch(e) {
     // Fallback: try loading inline if fetch fails (local file)
