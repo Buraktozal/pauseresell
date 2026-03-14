@@ -1,28 +1,5 @@
 [
   {
-    "desc": "Nike Sneaker",
-    "brand": "Nike",
-    "size": "40",
-    "price": "3299",
-    "cond": "Yeni & Etiketli",
-    "color": "kahverengi",
-    "folder": "nike-kahverengi-sneaker-yeni-etiketli-pausebutiq-417740656",
-    "images": [
-      "https://dolap.dsmcdn.com/dlp_230608_1/product/org/kadin/sneaker/40-nike_1684492371.jpg",
-      "https://dolap.dsmcdn.com/dlp_240311_1/product/org/kadin/sneaker/40-nike_1684492372.jpg",
-      "https://dolap.dsmcdn.com/dlp_230922_1/product/org/kadin/sneaker/40-nike_1684492373.jpg",
-      "https://dolap.dsmcdn.com/dlp_240221_1/product/org/kadin/sneaker/40-nike_1684492375.jpg",
-      "https://dolap.dsmcdn.com/dlp_230518_1/product/org/kadin/sneaker/40-nike_1684492376.jpg",
-      "https://dolap.dsmcdn.com/dlp_231019_1/product/org/kadin/sneaker/40-nike_1684492377.jpg",
-      "https://dolap.dsmcdn.com/dlp_230619_1/product/org/kadin/sneaker/40-nike_1684492378.jpg",
-      "https://dolap.dsmcdn.com/dlp_240224_1/product/org/ayakkabi/sneaker/40-nike_1791370320.jpg"
-    ],
-    "realName": "Air Jordan 1 Low SE Legend Coffee - 40",
-    "modelCode": "FJ3453-200",
-    "originalDesc": "Nike Sneaker",
-    "shopierLink": "https://shopier.com/45150070"
-  },
-  {
     "desc": "Nike Basketbol Ayakkabısı",
     "brand": "Nike",
     "size": "41",
