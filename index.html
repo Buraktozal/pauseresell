@@ -1235,6 +1235,20 @@
     font-weight: 700;
     color: var(--red);
   }
+  .cart-item-shopier {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 3px 10px;
+    background: #6C5CE7;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .cart-item-shopier:hover { background: #5A4BD1; }
+
   .cart-item-remove {
     position: absolute;
     top: 0.8rem; right: 0;
@@ -9003,6 +9017,7 @@ function renderCartPanel() {
           <div class="cart-item-name">${item.name}</div>
           <div class="cart-item-meta">${item.brand} · ${item.size}</div>
           <div class="cart-item-price">${price} TL</div>
+          ${item.shopierLink ? `<a href="${item.shopierLink}" target="_blank" rel="noopener" class="cart-item-shopier" onclick="event.stopPropagation()">Shopier</a>` : ''}
         </div>
         <button class="cart-item-remove" onclick="removeFromCart('${item.folder}')" title="Kaldır">✕</button>
       </div>
