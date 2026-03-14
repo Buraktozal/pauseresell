@@ -898,20 +898,20 @@
   }
 
   .modal-actions {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 0.6rem;
     margin-top: auto;
   }
 
-  .modal-actions a {
-    flex: 1 1 auto; min-width: 0;
+  .modal-actions a, .modal-actions button {
     display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
     font-size: 0.85rem; padding: 0.8rem 0.8rem;
     text-decoration: none; font-weight: 600; border-radius: 8px;
     transition: background 0.2s, opacity 0.2s;
+    min-width: 0;
   }
-  .modal-actions a svg { flex-shrink: 0; }
+  .modal-actions a svg, .modal-actions button svg { flex-shrink: 0; }
   .modal-actions .btn-primary { background: var(--red); color: #fff; }
   .modal-actions .btn-primary:hover { opacity: 0.9; }
   .modal-actions .btn-secondary { background: transparent; color: #fff; border: 1px solid var(--border); }
@@ -1316,19 +1316,10 @@
 
   /* Modal add to cart button */
   .btn-cart-modal {
-    display: flex; align-items: center; justify-content: center; gap: 0.4rem;
-    padding: 0.7rem 1.2rem;
     background: var(--red);
     color: #fff;
     border: 2px solid var(--red);
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.88rem;
     cursor: pointer;
-    transition: all 0.2s;
-    text-decoration: none;
-    flex: 1 1 auto;
-    min-width: 0;
   }
   .btn-cart-modal:hover { background: transparent; color: var(--red); }
   .btn-cart-modal.in-cart { background: #1a3a1a; border-color: #25D366; color: #25D366; }
@@ -1407,7 +1398,6 @@
     .modal-info-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
     .modal-info-item { overflow: hidden; min-width: 0; }
     .modal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
-    .modal-actions a:last-child { grid-column: 1 / -1; }
     .modal-close { top: 0.5rem; right: 0.5rem; width: 44px; height: 44px; font-size: 1.4rem; background: rgba(0,0,0,0.6); position: fixed; z-index: 20; }
     .filter-bar { gap: 0.6rem; }
     .search-box:focus, .search-box.expanded { width: 100%; }
