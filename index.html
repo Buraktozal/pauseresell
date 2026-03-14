@@ -9032,6 +9032,7 @@ function renderCartPanel() {
   let msg = 'Merhaba, aşağıdaki ürünleri sipariş vermek istiyorum:\n\n';
   cart.forEach((item, i) => {
     msg += (i + 1) + '. ' + item.name + ' — ' + parseInt(item.price).toLocaleString('tr-TR') + ' TL\n';
+    if (item.shopierLink) msg += '   ' + item.shopierLink + '\n';
   });
   msg += '\nToplam: ' + total.toLocaleString('tr-TR') + ' TL';
   document.getElementById('cartWaBtn').href = 'https://wa.me/905317024614?text=' + encodeURIComponent(msg);
