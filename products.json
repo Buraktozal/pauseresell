@@ -2707,27 +2707,6 @@
   {
     "desc": "Nike Sneaker",
     "brand": "Nike",
-    "size": "36.5",
-    "price": "1280",
-    "cond": "",
-    "color": "beyaz",
-    "folder": "nike-beyaz-sneaker-az-kullanilmis-pausebutiq-392721244",
-    "images": [
-      "https://dolap.dsmcdn.com/dlp_230510_2/product/org/kadin/spor-ayakkabi/365-nike_1613463615.jpg",
-      "https://dolap.dsmcdn.com/dlp_230517_1/product/org/kadin/spor-ayakkabi/365-nike_1613463614.jpg",
-      "https://dolap.dsmcdn.com/dlp_230926_1/product/org/kadin/spor-ayakkabi/365-nike_1613463613.jpg",
-      "https://dolap.dsmcdn.com/dlp_230831_1/product/org/kadin/spor-ayakkabi/365-nike_1613463616.jpg",
-      "https://dolap.dsmcdn.com/dlp_230923_1/product/org/kadin/spor-ayakkabi/365-nike_1613463617.jpg",
-      "https://dolap.dsmcdn.com/dlp_230925_1/product/org/kadin/spor-ayakkabi/365-nike_1583053502.jpg"
-    ],
-    "realName": "Nike Air Force 1 Low GS White Hyper Royal - 36.5",
-    "modelCode": "DV7762-103",
-    "originalDesc": "Nike Sneaker",
-    "shopierLink": "https://shopier.com/45150334"
-  },
-  {
-    "desc": "Nike Sneaker",
-    "brand": "Nike",
     "size": "40",
     "price": "1320",
     "cond": "",
