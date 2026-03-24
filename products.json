@@ -6063,27 +6063,6 @@
   {
     "desc": "Nike Sneaker",
     "brand": "Nike",
-    "size": "37.5",
-    "price": "1999",
-    "cond": "",
-    "color": "beyaz",
-    "folder": "nike-beyaz-sneaker-az-kullanilmis-pausebutiq-395319927",
-    "images": [
-      "https://dolap.dsmcdn.com/dlp_240225_1/product/org/kadin/spor-ayakkabi/375-nike_1661031885.jpg",
-      "https://dolap.dsmcdn.com/dlp_230813_1/product/org/kadin/spor-ayakkabi/375-nike_1661031886.jpg",
-      "https://dolap.dsmcdn.com/dlp_230711_1/product/org/kadin/spor-ayakkabi/375-nike_1661031887.jpg",
-      "https://dolap.dsmcdn.com/dlp_230803_1/product/org/kadin/spor-ayakkabi/375-nike_1661031888.jpg",
-      "https://dolap.dsmcdn.com/dlp_230612_1/product/org/kadin/spor-ayakkabi/375-nike_1661031889.jpg",
-      "https://dolap.dsmcdn.com/dlp_231022_1/product/org/kadin/spor-ayakkabi/375-nike_1593773895.jpg"
-    ],
-    "realName": "Nike BQ6472-504 - 37.5",
-    "modelCode": "BQ6472-504",
-    "originalDesc": "Nike Sneaker",
-    "shopierLink": "https://shopier.com/45150602"
-  },
-  {
-    "desc": "Nike Sneaker",
-    "brand": "Nike",
     "size": "39",
     "price": "1499",
     "cond": "",
